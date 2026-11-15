@@ -1,0 +1,164 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+version: "v0.4"
+
+project:
+  name: "The canonical Gallai–van der Waerden number H(3, 4) = 53"
+  description: >-
+    A Lean 4 and Mathlib proof that every colouring of {1, …, 53}, with colours in any type (so with
+    any number of colours), contains a rainbow 3-term or a monochromatic 4-term arithmetic progression,
+    and so does every colouring of {1, …, n} for n ≥ 53, while an explicit 3-colouring of {1, …, 52}
+    contains neither. Hence the canonical Gallai–van der Waerden (canonical van der Waerden) number
+    H(3, 4), the least N such that every colouring of {1, …, N} contains a rainbow 3-term or a
+    monochromatic 4-term progression, equals 53. The upper bound is reduced to the unsatisfiability of
+    a CNF whose atoms say that two points have the same colour (transitivity clauses, one clause per
+    3-term and per 4-term progression), and an LRAT refutation from CaDiCaL (702 derived clauses,
+    20,963 hints) is checked in Lean's kernel by decide +kernel (no native_decide) with a bitmask RUP
+    checker proved sound in Lean for every input. The lower bound is an explicit colouring checked by
+    decide +kernel.
+  authors:
+    - "Arhan Canli"
+  license: "Apache-2.0"
+  responsible_maintainers:
+    - "Arhan Canli"
+
+classification:
+  arxiv: ["math.CO"]
+  msc2020: ["05D10", "11B25"]
+
+sources:
+  - title: >-
+      H(3, 4) = 53, by a SAT computation with an LRAT certificate and an explicit colouring
+      (Quantavane, 11 November 2026)
+    type: original-proof
+    relationship: other
+    contributors:
+      - name: "Claude (Anthropic)"
+        role: >-
+          AI agents working under Arhan Canli's direction: ran the SAT computation and the certificate
+          checks, wrote the kernel checker, its soundness proof and the Lean formalization
+    note: >-
+      The statement H(3, 4) = 53 is first presented in this repository. Quantavane's paper "Power-residue
+      colourings and exact Gallai–van der Waerden numbers" (A. Canli, November 2026, not yet published)
+      has it as Corollary 1.2. The refuted formula and its LRAT proof were published before as data, as a
+      confirmation of the row GW(r; 3, 4), in the public data repository arhancanli/quantavane-gw-data
+      (public since 15 November 2026; cnf/gw_any_53_l4.cnf and lrat/gw_any_53_l4.lrat in
+      gw/certificates.tar.xz, SHA-256 9008c69718bda8d6999185b7ef4f71c4b64390fa0c5c13b8e13dfd86ab760e40
+      and a7a1c1e1a19ce01b11631a101d1c48bb25732a78b1d1f836db1de295b0e82316). A literature search on 11
+      and 12 November 2026 (MORW 2023, Si 2026, MathWorld, arXiv, Zenodo, GitHub, OEIS, Crossref and the
+      Palomar registry) found no published value of H(3, 4). The search was limited, so novelty is not
+      established beyond it.
+  - title: "Arithmetic progressions, quasi progressions, and Gallai-Ramsey colorings"
+    authors:
+      - "Yaping Mao"
+      - "Kenta Ozeki"
+      - "Aaron Robertson"
+      - "Zhao Wang"
+    id: "doi:10.1016/j.jcta.2022.105672"
+    type: paper
+    location: "J. Combin. Theory Ser. A 193 (2023), 105672; Definitions 1.15 and 1.17"
+    relationship: background
+    note: >-
+      Introduces the Gallai–van der Waerden numbers GW(r; k, l) and their non-exact version GW'(r; k, l);
+      H(k, l) is the largest GW'(r; k, l) over all r.
+    author_endorsement: not-contacted
+  - title: "Complete Determination of the Gallai-van der Waerden Number GW(r;3,3)"
+    authors:
+      - "Yuan Si"
+    id: "arXiv:2610.30711"
+    type: paper
+    location: "https://arxiv.org/abs/2610.30711 (October 2026)"
+    relationship: background
+    note: >-
+      Completes the row GW(r; 3, 3), which with MORW gives H(3, 3) = 9, the only exact value of H(k, l)
+      with k, l ≥ 3 that we know of before this one. Y. Si has not reviewed this repository.
+    author_endorsement: not-contacted
+
+related_formalizations:
+  - id: "https://palomar-registry.org/entry.html?id=PALOMAR-2026-11-13-000005"
+    relationship: other
+    note: >-
+      Quantavane's formalization of GW(r; 3, 4) = 53 for r = 3, 4, 5 (arhancanli/quantavane-gw-exact).
+      The checker here is its bitmask RUP checker with wider fields (13-bit literals, 16-bit counts); the
+      colouring of {1, …, 52} is its 3-colouring. That entry bounds colourings with at most five colours
+      (a CNF with one atom per point and colour); this one bounds colourings with any number of colours
+      (a CNF with one atom per pair of points). Neither repository imports the other.
+
+status:
+  scope: >-
+    Formalized: no colouring of {1, …, n}, n ≥ 53, with colours in any type, avoids both rainbow 3-term
+    and monochromatic 4-term progressions; an explicit colouring of {1, …, 52} avoids both; H(3, 4) = 53
+    with H defined as the least N for which no colouring of {1, …, N} by natural numbers is good. Not
+    formalized: the canonical van der Waerden theorem in general (not needed: the set defining H(3, 4)
+    is shown to contain 53); the consequences for GW(r; 3, 4) and GW'(r; 3, 4) mentioned in the README;
+    the correctness of the SAT solver and of the programs that wrote the certificate, which is not
+    needed because the certificate is checked in Lean.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: []
+
+automation:
+  methods:
+    - method: agent
+      models: ["claude-opus-5-5"]
+      framework: "Claude Code"
+      tool_setup: >-
+        AI agents in Claude Code with shell access to a local Lean toolchain, Mathlib, CaDiCaL, C and
+        Python, working under Arhan Canli's direction: one agent wrote the encoder, ran the SAT solver
+        and checked the LRAT proof with a separately written strict checker (11 November 2026); another
+        wrote this formalization and ran its checks (15 November 2026).
+      cost:
+        wall_time: "part of a day for the computation; about two hours for the Lean proof"
+        spend_usd: "subscription-based usage, not tracked per project"
+        hardware: "a local Mac (Apple silicon)"
+      prompting_notes: >-
+        The agents were asked for exact Gallai–van der Waerden values, then for a Lean proof of the
+        canonical value with only the standard axioms (no native_decide), packaged for Palomar like
+        Quantavane's earlier Gallai–van der Waerden repositories.
+  spend_usd: "subscription-based usage, not tracked per project"
+  notes: >-
+    The computation, the programs and every line of Lean in this repository were written by AI agents
+    (Claude, by Anthropic). Arhan Canli directed the work and is responsible for the result.
+
+fidelity:
+  divergences: >-
+    None known. Lean conventions to note: colourings are functions on ℕ whose values outside {1, …, n}
+    are ignored; H is defined with colourings by natural numbers (any number of colours on a finite
+    interval), while no_good_53 and no_good_of_le hold for colourings with values in any type; H uses
+    sInf, which is 0 for the empty set, and the set here contains 53.
+
+review:
+  status: "agent-reviewed"
+  reviewers:
+    - "Quantavane's agents (Claude, Anthropic)"
+  notes: >-
+    The LRAT proof was checked by a separately written strict checker before the Lean work. In Lean: the
+    axioms of the compared theorems were printed; the declarations the compared statements depend on were
+    compared between the Challenge and Solution environments; the exported Solution was replayed through
+    the kernels bundled with the toolchain; red controls (the certificate against {1, …, 52}, without its
+    last step, with one hint bit flipped; the colouring of {1, …, 52} on {1, …, 53} and tested for
+    monochromatic 3-term progressions) are rejected by the kernel. No mathematician outside Quantavane has
+    reviewed the proof.
+
+alignment:
+  namespace: "GwH34"
+  statements:
+    - source: "Corollary 1.2: no colouring of [1, 53] is (3, 4)-good"
+      lean: "GwH34.no_good_53"
+      module: "Challenge"
+      status: proved
+    - source: "Corollary 1.2: no colouring of [1, n], n ≥ 53, is (3, 4)-good"
+      lean: "GwH34.no_good_of_le"
+      module: "Challenge"
+      status: proved
+    - source: "Corollary 1.2: a (3, 4)-good colouring of [1, 52]"
+      lean: "GwH34.exists_good_52"
+      module: "Challenge"
+      status: proved
+    - source: "Corollary 1.2: H(3, 4) = 53"
+      lean: "GwH34.H_four"
+      module: "Challenge"
+      status: proved
+
+acknowledgements: >-
+  Mathlib and the Lean toolchain (Lean FRO), including the Comparator and the bundled kernel checkers;
+  CaDiCaL; Palomar's template and documentation.
