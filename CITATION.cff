@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you use this work, please cite it as below."
+type: software
+title: "The canonical Gallai-van der Waerden number H(3,4) = 53: Lean 4 proof"
+abstract: "Lean 4 proof that the canonical Gallai-van der Waerden number H(3,4) is 53."
+authors:
+  - family-names: Canli
+    given-names: Arhan
+    affiliation: Quantavane
+    email: arhan@quantavane.com
+license: Apache-2.0
+url: "https://quantavane.com"
+repository-code: "https://github.com/arhancanli/quantavane-gw-h34"
+keywords:
+  - Gallai-van der Waerden numbers
+  - Lean 4
