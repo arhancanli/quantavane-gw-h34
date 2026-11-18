@@ -146,6 +146,22 @@ python3 scripts/make_cert.py gw_any_53_l4.cnf gw_any_53_l4.lrat GwH34/Cert.lean 
 - `GwH34/Upper.lean`, `GwH34/Lower.lean`: the two bounds.
 - `comparator.json`, `formalization.yaml`, `scripts/CheckAxioms.lean`, `scripts/make_cert.py`.
 
+## How to cite
+
+If you use this work, please cite it as below.
+
+```bibtex
+@misc{quantavane-gw-h34,
+  author       = {Canli, Arhan},
+  title        = {The canonical Gallai-van der Waerden number H(3,4) = 53: Lean 4 proof},
+  year         = {2026},
+  howpublished = {\url{https://github.com/arhancanli/quantavane-gw-h34}},
+  note         = {Quantavane; Apache License 2.0}
+}
+```
+
+[CITATION.cff](CITATION.cff) gives the same reference for GitHub's "Cite this repository" button.
+
 ## Licence
 
 Apache-2.0 (`LICENSE`).
